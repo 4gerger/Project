@@ -7,12 +7,67 @@
     <title>Netflix Movie Generator</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js" type="text/javascript"></script>
+
 </head>
 
 <body>
+    <div class="nav">
 
+    </div>
+    <div class="searchbar">
+        <button id="searchBtn">
+            Movie Search
+        </button>
+    </div>
+    <div class="movieresults">
 
-<script src="script.js"></script>
+    </div>
+    <div class="footer">
+
+    </div>
+    <div class="heyhey">
+        </div>
+
+        <script>
+        $("#searchBtn").on("click", function() {
+            var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get%3Anew7%3AUS&p=1&t=ns&st=adv",
+                    "method": "GET",
+                    "headers": {
+                        "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com",
+                        "x-rapidapi-key": "f1bd960599msh649fc643e8fdbcep118c63jsn3b463af5d748"
+                    }
+                }
+                
+                $.ajax(settings).done(function (response) {
+                    console.log(response);
+                    console.log(response.ITEMS[0].image)
+                });
+        })
+                
+                
+        </script>
 </body>
 
 </html>
+
+
+<!-- Object:
+COUNT: "32"
+ITEMS: Array(32)
+0:
+download: "1"
+image: "https://occ-0-2219-2218.1.nflxso.net/dnm/api/v6/XsrytRUxks8BtTRf9HNlZkW2tvY/AAAABRiPIAVRnSybl_joINOjJw7FepvHyJyTXXC-kgc8fVnkdmKKbhozo1y8aX-t2g2dmELp3XKuNfOqaynTYMC0RuVesg.jpg?r=97c"
+imdbid: "tt0116126"
+largeimage: "http://cdn0.nflximg.net/images/4156/10924156.jpg"
+netflixid: "452508"
+rating: "6.6"
+released: "1996"
+runtime: "1h28m"
+synopsis: "In this goofy send-up of the gritty urban movies of the early 1990s, Ashtray moves to South Central L.A. and falls in with his gang-banging cousin.<br><b>New on 2019-12-04</b>"
+title: "Don&#39;t Be a Menace to South Central While Drinking Your Juice in the Hood"
+type: "movie"
+unogsdate: "2019-12-04" -->
