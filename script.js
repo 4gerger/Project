@@ -5,7 +5,7 @@ var settings = {
 	"method": "GET",
 	"headers": {
 		"x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com",
-		"x-rapidapi-key": "0c788f73a0mshfb506f5275d5528p1b3d08jsne2ea2d78d3af"
+		"x-rapidapi-key": "f1bd960599msh649fc643e8fdbcep118c63jsn3b463af5d748"
 	}
 }
 
