@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!--jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" type="text/javascript"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js" type="text/javascript"></script>
+
+
+</head>
+
+<body>
+
+    <header>
+        
+    </header>
+
+
+    <script>
+        
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get%3Anew7%3AUS&p=1&t=ns&st=adv",
+    "method": "GET",
+    "headers": {
+        "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com",
+        "x-rapidapi-key": "0c788f73a0mshfb506f5275d5528p1b3d08jsne2ea2d78d3af"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+
+    </script>
+
+</body>
+
+</html>
