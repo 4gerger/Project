@@ -14,28 +14,57 @@
 </head>
 
 <body>
-
     <header>
-        
-    </header>
 
+    </header>
+    <form>
+        <fieldset>
+            <legend>User Preference</legend>
+            <p>
+                <label>Select Genre</label>
+                <select id="genres">
+                    <option value="801362">Action</option>
+                    <option value="7442">Adventure</option>
+                    <option value="7424">Anime</option>
+                    <option value="6548">Comedy</option>
+                    <option value="5763">Drama</option>
+                    <option value="8711">Horror</option>
+                    <option value="13335">Musical</option>
+                    <option value="1255">Romance Drama</option>
+                </select>
+            </p>
+            <p>
+                <label>Select Country</label>
+                <select id="countries">
+                    <option value="23">Australia</option>
+                    <option value="33">Canada</option>
+                    <option value="327">Greece</option>
+                    <option value="337">India</option>
+                    <option value="55">Ireland</option>
+                    <option value="391">Pakistan</option>
+                    <option value="46">United Kingdom</option>
+                    <option value="78">United States</option>
+                </select>
+            </p>
+        </fieldset>
+    </form>
 
     <script>
-        
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get%3Anew7%3AUS&p=1&t=ns&st=adv",
-    "method": "GET",
-    "headers": {
-        "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com",
-        "x-rapidapi-key": "0c788f73a0mshfb506f5275d5528p1b3d08jsne2ea2d78d3af"
-    }
-}
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get%3Anew7%3AUS&p=1&t=ns&st=adv",
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com",
+                "x-rapidapi-key": "0c788f73a0mshfb506f5275d5528p1b3d08jsne2ea2d78d3af"
+            }
+        }
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+        });
 
     </script>
 
