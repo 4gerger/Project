@@ -74,7 +74,7 @@
             var settings = {
                 "async": true,
                 "crossDomain": true,
-                "url": "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get%253Anew1000-!1900%2C2018-!0%2C5-!0%2C10-!" + userGenre + "-!Any-!Any-!Any-!gt100-!%7Bdownloadable%7D&t=ns&cl=" + userCountry + "&st=adv&ob=Relevance&p=1&sa=and",
+                "url": "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get:new1000-!1900,2018-!0,5-!0,10-!801362-!Any-!Any-!Any-!gt100-!{ }&t=ns&cl=23&st=adv&ob=Relevance&p=1&sa=and",
                 "method": "GET",
                 "headers": {
                     "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com",
@@ -85,14 +85,13 @@
 
             $.ajax(settings).done(function (response) {
                 console.log(response);
-                console.log(response.ITEMS[0].image);
+                
                
                //starting dynamically creating carousel
                 var arr = ["#one!", "#two!", "#three!", "#four!", "#five!"]
-
-                for (i=0; i < arr.length ; i++) 
+                var i;
+                for (i=0; i < arr.length; i++) 
                 {
-                    console.log("hello!");
                     //making carousel item div and giving it an id matching i and href matching the arr
                     var newDiv = $("<div>");
                     newDiv.addClass("carousel-item");
@@ -101,28 +100,28 @@
 
                     //making new image with movie poster from response
                     var newImage = $("<img>");
-                    newImage.attr("src", response.ITEMS[i].image);
+                    newImage.attr("src", response.ITEMS[0].image);
 
                     //making mini div with movie information
                     var miniDiv = $("<div>");
-                    var movieTitle = $("<h1>");
-                    movieTitle.text(response.ITEMS[i].title);
+                    var movieTitle = $("<h9>");
+                    movieTitle.text(response.ITEMS[0].title);
                     var moviePlot = $("<p>");
-                    moviePlot.text(response.ITEMS[i].synopsis);
+                    moviePlot.text(response.ITEMS[0].synopsis);
                     var movieRating = $("<p>");
-                    movieRating.text(response.ITEMS[i].rating + " /10 as chosen by IMBD users");
+                    movieRating.text(response.ITEMS[0].rating + " /10 as chosen by IMBD users");
                     var movieLength = $("<p>");
-                    movieLength.text(response.ITEMS[i].runtime);
+                    movieLength.text(response.ITEMS[0].runtime);
                     miniDiv.append(movieTitle);
                     miniDiv.append(moviePlot);
                     miniDiv.append(movieRating);
                     miniDiv.append(movieLength);
 
                     //making div id easier to read
-                    var carouselItemDivId = "#"+i;
-                    $(carouselItemDivId).append(miniDiv);
-                    $(carouselItemDivId).append(newImage);
-                    $(".carousel").append(carouselItemDivId);
+                    
+                    newDiv.append(miniDiv);
+                    newDiv.append(newImage);
+                    $(".carousel").append(newDiv);
                 }
                 // carousel but with the .on document ready removed as it is on ajax done
                 $('.carousel').carousel();
