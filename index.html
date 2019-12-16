@@ -52,7 +52,8 @@
               </button>
 
     </div>
-    <a class="btn-floating pulse hey"><i class="material-icons">Click to watch now!</i></a>
+
+    <div class="pulse"></div>
         <div class="carousel carousel-slider center" style="height: 500px">
                 <div class="carousel-fixed-item center">
                   <img src="https://broadcastingandmedia.com/img/logos/1550565848NetflixSmall.png" class="btn-floating pulse" style="width: 50px">
@@ -133,6 +134,14 @@
         $("#searchBtn").on("click", function () 
         {
             $(".carousel").html("");
+            var watchNowBtn = $("<a>");
+            watchNowBtn.addClass("btn-floating pulse hey");
+            var watchNowBtnAppearance = $("<i>");
+            watchNowBtnAppearance.addClass("material-icons");
+            watchNowBtnAppearance.text("Watch Random Now!");
+            watchNowBtn.append(watchNowBtnAppearance);
+            $(".pulse").append(watchNowBtn);
+
             var countryCode = $("#countries").val();
             var genreCode = $("#genres").val();
             var queryURL = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?"
@@ -169,6 +178,13 @@
             $.ajax(settings).done(function (response) 
             {
                 localStorage.setItem("history", response);
+                    var randomArr = response.ITEMS.length;
+                    var whatMovie = Math.floor(Math.random() * randomArr);
+                    var btnTitle = response.ITEMS[whatMovie].netflixid;
+                    var btnURL = "https://www.netflix.com/watch/0?origId=" + btnTitle;
+                    watchNowBtn.attr('href', btnURL);
+                    console.log(btnURL);
+
                 creatingCarousel(response);
             });
 
