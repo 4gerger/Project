@@ -15,25 +15,6 @@
                 </h1>
               </div>
               
-              
-              <a class='dropdown-trigger btn' href='#' data-target='numbers'>results </a>
-            
-              <!-- Dropdown Structure -->
-              <ul id='numbers' class='dropdown-content'>
-            
-                <li><option value="1">1</option></li>
-                <li><option value="2">2</option></li>
-                <li><option value="3">3</option></li>
-                <li><option value="4">4</option></li>
-                <li><option value="5">5</option></li>
-              </ul>
-            </div>
-             
-             
-             
-              </div>
-              
-              
                 <a class='dropdown-trigger btn' href='#' data-target='countries'>select your country</a>
               
                 <!-- Dropdown Structure -->
@@ -69,23 +50,89 @@
               <button id="searchBtn">
                   Movie Search
               </button>
- 
+
     </div>
-  
+
         <div class="carousel carousel-slider center" style="height: 500px">
                 <div class="carousel-fixed-item center">
                   <img src="https://broadcastingandmedia.com/img/logos/1550565848NetflixSmall.png" style="width: 50px">
                 </div>
-               
+          
         </div>
     
-    <div class="footer">
-
-    </div>
-
     <script>
+        console.log(localStorage.getItem("history"));
+        console.log(localStorage);
+       
+         function creatingCarousel (ajax) 
+         {
         
-        $("#searchBtn").on("click", function () {
+              // starting dynamically creating carousel
+                var i;
+                for (i=0; i < ajax.ITEMS.length; i++) 
+                {
+                    //making carousel item div and giving it an id matching i and href matching the arr
+                    var newDiv = $("<div>");
+                    newDiv.addClass("carousel-item red white-text");
+                    newDiv.css("border", "1px solid black");
+                    newDiv.css("height", "500px");
+                    var secondDiv = $("<div>");
+                    secondDiv.addClass("valign-wrapper");
+                    secondDiv.css("background-color", "black");
+                    secondDiv.css("width", "85%");
+                    secondDiv.css("position", "absolute");
+                    secondDiv.css("top", "5%");
+                    secondDiv.css("right", "5%");
+                    secondDiv.css("border-radius", "4px");
+                    secondDiv.css("border", "white solid 1px");
+                    //making new image with movie poster from response
+                    var newImage = $("<img>");
+                    newImage.css("width", "300px");
+                    newImage.css("border", "black 1px solid");
+                    newImage.css("padding", "5px 5px 10px 5px");
+                    console.log(ajax.ITEMS[i])
+                    newImage.attr("src", ajax.ITEMS[i].image);
+
+                    //making mini div with movie information
+                    
+                    var movieTitle = $("<h9>");
+                    movieTitle.text(ajax.ITEMS[i].title);
+                    var moviePlot = $("<p>");
+                    moviePlot.text(ajax.ITEMS[i].synopsis);
+                    var movieRating = $("<p>");
+                    movieRating.text(ajax.ITEMS[i].rating + " /10 as chosen by IMBD users");
+                    var movieLength = $("<p>");
+                    movieLength.text(ajax.ITEMS[i].runtime);
+                    
+                    secondDiv.append(newImage);
+                    secondDiv.append(movieTitle);
+                    secondDiv.append(moviePlot);
+                    secondDiv.append(movieRating);
+                    secondDiv.append(movieLength);
+                    newDiv.append(secondDiv);
+                    $(".carousel").append(newDiv);
+                }
+           
+                $('.carousel.carousel-slider').carousel(
+                {
+                    fullWidth: true,
+                    indicators: true
+                });    
+
+        };
+
+        var history = localStorage.getItem("history");
+        if (history != "[Object object]") 
+        { 
+            creatingCarousel(history)
+        } else {
+
+        }
+        
+
+        $("#searchBtn").on("click", function () 
+        {
+            $(".carousel").html("");
             var countryCode = $("#countries").val();
             var genreCode = $("#genres").val();
             var queryURL = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?"
@@ -107,7 +154,8 @@
             queryURL += "&p=1"
             queryURL += "&sa=and"
 
-            var settings = {
+            var settings = 
+            {
                 "async": true,
                 "crossDomain": true,
                 "url": queryURL,
@@ -117,96 +165,21 @@
                     "x-rapidapi-key": "f1bd960599msh649fc643e8fdbcep118c63jsn3b463af5d748"
                 }
             }
-            console.log(settings.url);
-            console.log(queryURL);
-            console.log(genreCode);
-            console.log(countryCode);
 
-            $.ajax(settings).done(function (response) {
-                console.log(response);
-                
-               
-              // starting dynamically creating carousel
-                var i;
-                for (i=0; i < response.ITEMS.length; i++) 
-                {
-                    //making carousel item div and giving it an id matching i and href matching the arr
-                    var newDiv = $("<div>");
-                    newDiv.addClass("carousel-item red white-text");
-                    newDiv.css("border", "1px solid black");
-                    newDiv.css("height", "500px");
-                    var secondDiv = $("<div>");
-                    secondDiv.addClass("valign-wrapper");
-                    secondDiv.css("background-color", "black");
-                    secondDiv.css("width", "85%");
-                    secondDiv.css("position", "absolute");
-                    secondDiv.css("top", "5%");
-                    secondDiv.css("right", "5%");
-                    secondDiv.css("border-radius", "4px");
-                    secondDiv.css("border", "white solid 1px");
-                    //making new image with movie poster from response
-                    var newImage = $("<img>");
-                    newImage.css("width", "300px");
-                    newImage.css("border", "black 1px solid");
-                    newImage.css("padding", "5px 5px 10px 5px");
-                    console.log(response.ITEMS[i])
-                    newImage.attr("src", response.ITEMS[i].image);
-
-                    //making mini div with movie information
-                    
-                    var movieTitle = $("<h9>");
-                    movieTitle.text(response.ITEMS[i].title);
-                    var moviePlot = $("<p>");
-                    moviePlot.text(response.ITEMS[i].synopsis);
-                    var movieRating = $("<p>");
-                    movieRating.text(response.ITEMS[i].rating + " /10 as chosen by IMBD users");
-                    var movieLength = $("<p>");
-                    movieLength.text(response.ITEMS[i].runtime);
-                    
-                    secondDiv.append(newImage);
-                    secondDiv.append(movieTitle);
-                    secondDiv.append(moviePlot);
-                    secondDiv.append(movieRating);
-                    secondDiv.append(movieLength);
-                    newDiv.append(secondDiv);
-                    $(".carousel").append(newDiv);
-                }
-                //carousel but with the .on document ready removed as it is on ajax done
-
-
- 
-  
-  $('.carousel.carousel-slider').carousel({
-    fullWidth: true,
-    indicators: true
-  });       
-         
-
-
+            $.ajax(settings).done(function (response) 
+            {
+                localStorage.setItem("history", response);
+                creatingCarousel(response);
             });
-        })
-        $('.dropdown-trigger').dropdown();
 
+        })
+        $('.dropdown-trigger').dropdown
+        ({
+
+        });
     </script>
 </body>
 
 </html>
 
-
-<!-- Object:
-COUNT: "32"
-ITEMS: Array(32)
-0:
-download: "1"
-image: "https://occ-0-2219-2218.1.nflxso.net/dnm/api/v6/XsrytRUxks8BtTRf9HNlZkW2tvY/AAAABRiPIAVRnSybl_joINOjJw7FepvHyJyTXXC-kgc8fVnkdmKKbhozo1y8aX-t2g2dmELp3XKuNfOqaynTYMC0RuVesg.jpg?r=97c"
-imdbid: "tt0116126"
-largeimage: "http://cdn0.nflximg.net/images/4156/10924156.jpg"
-netflixid: "452508"
-rating: "6.6"
-released: "1996"
-runtime: "1h28m"
-synopsis: "In this goofy send-up of the gritty urban movies of the early 1990s, Ashtray moves to South Central L.A. and falls in with his gang-banging cousin.<br><b>New on 2019-12-04</b>"
-title: "Don&#39;t Be a Menace to South Central While Drinking Your Juice in the Hood"
-type: "movie"
-unogsdate: "2019-12-04" -->
 
