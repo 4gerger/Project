@@ -16,3 +16,13 @@ h1{
 .container-fluid {
     margin: 0px 0px 0px 0px;
 }
+
+.hey {
+    background-image: "https://broadcastingandmedia.com/img/logos/1550565848NetflixSmall.png";
+    width: 200px;
+    background-color: black;
+    color: white;
+    font-size: 5px;
+    border-radius: 0;
+    border: 1px red solid;
+}
