@@ -16,8 +16,8 @@
     </div>
     <div class="pulse"></div>
     <div class="container-fluid searching">
-
-        <div class="input-field col s6">
+        <div class = "row">
+        <div class="input-field col s4">
                         <select id ='countries'>
                           <option value="" disabled selected>Choose your country</option>
                           <option value="23">Australia</option>
@@ -31,7 +31,7 @@
                         </select>
                       </div>
 
-        <div class="input-field col s6">
+        <div class="input-field col s4">
                 <select id ='genres'>
                   <option value="" disabled selected>Choose your genre</option>
                   <option value="801362">Action</option>
@@ -46,13 +46,14 @@
               </div>
 
 
-        <button id="searchBtn" class="btn">
+        <button id="searchBtn" class="btn col s4">
             Movie Search
         </button>
+    </div>
 
    
     </div>
-    <div class="carousel carousel-slider center" style="height: 500px">
+    <div class="carousel carousel-slider center" style="height: 600px; background-color:darkred" >
 
     </div>
 
@@ -60,8 +61,7 @@
         $(document).ready(function(){
             $('select').formSelect();
         });
-        console.log(localStorage.getItem("history"));
-        console.log(localStorage);
+        
         function creatingCarousel(ajax) {
             // starting dynamically creating carousel
             var i;
@@ -70,7 +70,7 @@
                 var newDiv = $("<div>");
                 newDiv.addClass("carousel-item red white-text");
                 newDiv.css("border", "1px solid black");
-                newDiv.css("height", "500px");
+                newDiv.css("height", "800px");
                 var secondDiv = $("<div>");
                 secondDiv.addClass("valign-wrapper");
                 secondDiv.css("background-color", "black");
@@ -82,6 +82,7 @@
                 secondDiv.css("border", "white solid 1px");
                 //making new image with movie poster from response
                 var newImage = $("<img>");
+                newImage.addClass("responsive-img");
                 newImage.css("width", "300px");
                 newImage.css("border", "black 1px solid");
                 newImage.css("padding", "5px 5px 10px 5px");
@@ -110,9 +111,10 @@
                     indicators: true
                 });
         };
-        var history = localStorage.getItem("history");
-        if (history != "[Object object]") {
-            // creatingCarousel(history)
+        var historyObject = JSON.parse(localStorage.getItem("history"));
+        console.log(historyObject);
+        if (historyObject != "") {
+            creatingCarousel(historyObject)
         } else {
         }
         $("#searchBtn").on("click", function () {
@@ -157,8 +159,10 @@
                 }
             }
             //f42dc959c3fcbced717420fd247f1092735c1
-            $.ajax(settings).done(function (response) {
-                localStorage.setItem("history", response);
+            $.ajax(settings).done(function (response)
+             {  var parse = JSON.stringify(response);
+                localStorage.setItem("history", parse);
+                console.log(parse);
                 var randomArr = response.ITEMS.length;
                 var whatMovie = Math.floor(Math.random() * randomArr);
                 var btnTitle = response.ITEMS[whatMovie].netflixid;
@@ -171,6 +175,9 @@
         $('.dropdown-trigger').dropdown
             ({
             });
+        $('image').on("click", function(){
+
+        })
     </script>
 </body>
 

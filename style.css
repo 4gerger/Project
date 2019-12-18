@@ -31,13 +31,23 @@ h1{
 #searchBtn {
     background-color: white !important;
     color: black !important;
+    margin-top: 15px;
+    position: absolute;
+    right: 2px;
 }
 #searchBtn:active, #searchBtn:visited, #searchBtn:hover {
     background-color: white !important;
     color: black !important;
     border: red 1px solid !important;
+    position: absolute;
+    right: 2px;
 }
 .header {
     margin-top: 0px;
     padding: 10px 0px 10px 0px;
+}
+
+.input-field {
+    width : 30% !important;
+    color: black;
 }
