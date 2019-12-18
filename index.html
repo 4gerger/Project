@@ -162,7 +162,7 @@
                 var randomArr = response.ITEMS.length;
                 var whatMovie = Math.floor(Math.random() * randomArr);
                 var btnTitle = response.ITEMS[whatMovie].netflixid;
-                var btnURL = "https://www.netflix.com/watch/0?origId=" + btnTitle;
+                var btnURL = "https://www.netflix.com/watch/" + btnTitle;
                 watchNowBtn.attr('href', btnURL);
                 console.log(btnURL);
                 creatingCarousel(response);
