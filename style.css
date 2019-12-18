@@ -27,6 +27,7 @@ h1{
     border: 1px red solid;
     position: fixed;
     right: 5%;
+    top: 4%;
 }
 #searchBtn {
     background-color: white !important;
@@ -48,6 +49,6 @@ h1{
 }
 
 .input-field {
-    width : 30% !important;
+    width : 25% !important;
     color: black;
 }
