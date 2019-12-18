@@ -45,27 +45,28 @@
                 </select>
               </div>
 
-
         <button id="searchBtn" class="btn col s4">
             Movie Search
         </button>
     </div>
 
-   
+
     </div>
     <div class="carousel carousel-slider center" style="height: 600px; background-color:darkred" >
 
     </div>
 
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('select').formSelect();
         });
         
         function creatingCarousel(ajax) {
             // starting dynamically creating carousel
+            var randomArr = ajax.ITEMS.length;
             var i;
-            for (i = 0; i < ajax.ITEMS.length; i++) {
+            for (i = 0; i < $("#selections").val(); i++) {
+                var random = Math.floor(Math.random() * randomArr);
                 //making carousel item div and giving it an id matching i and href matching the arr
                 var newDiv = $("<div>");
                 newDiv.addClass("carousel-item red white-text");
@@ -86,17 +87,17 @@
                 newImage.css("width", "300px");
                 newImage.css("border", "black 1px solid");
                 newImage.css("padding", "5px 5px 10px 5px");
-                console.log(ajax.ITEMS[i])
-                newImage.attr("src", ajax.ITEMS[i].image);
+                console.log(ajax.ITEMS[random])
+                newImage.attr("src", ajax.ITEMS[random].image);
                 //making mini div with movie information
                 var movieTitle = $("<h9>");
-                movieTitle.text(ajax.ITEMS[i].title);
+                movieTitle.text(ajax.ITEMS[random].title);
                 var moviePlot = $("<p>");
-                moviePlot.text(ajax.ITEMS[i].synopsis);
+                moviePlot.text(ajax.ITEMS[random].synopsis);
                 var movieRating = $("<p>");
-                movieRating.text(ajax.ITEMS[i].rating + " /10 as chosen by IMBD users");
+                movieRating.text(ajax.ITEMS[random].rating + " /10 as chosen by IMBD users");
                 var movieLength = $("<p>");
-                movieLength.text(ajax.ITEMS[i].runtime);
+                movieLength.text(ajax.ITEMS[random].runtime);
                 secondDiv.append(newImage);
                 secondDiv.append(movieTitle);
                 secondDiv.append(moviePlot);
@@ -184,7 +185,7 @@
 </html>
 
 
-    <!-- Object:
+<!-- Object:
 COUNT: "32"
 ITEMS: Array(32)
 0:
