@@ -18,54 +18,68 @@
     <div class="container-fluid searching">
 
         <div class="input-field col s6">
-                        <select id ='countries'>
-                          <option value="" disabled selected>Choose your country</option>
-                          <option value="23">Australia</option>
-                          <option value="33">Canada</option>
-                          <option value="327">Greece</option>
-                          <option value="337">India</option>
-                          <option value="55">Ireland</option>
-                          <option value="391">Pakistan</option>
-                          <option value="46">United Kingdom</option>
-                          <option value="78">United States</option>
-                        </select>
-                      </div>
+            <select id='countries'>
+                <option value="" disabled selected>Choose your country</option>
+                <option value="23">Australia</option>
+                <option value="33">Canada</option>
+                <option value="327">Greece</option>
+                <option value="337">India</option>
+                <option value="55">Ireland</option>
+                <option value="391">Pakistan</option>
+                <option value="46">United Kingdom</option>
+                <option value="78">United States</option>
+            </select>
+        </div>
 
         <div class="input-field col s6">
-                <select id ='genres'>
-                  <option value="" disabled selected>Choose your genre</option>
-                  <option value="801362">Action</option>
-                  <option value="7442">Adventure</option>
-                  <option value="7424">Anime</option>
-                  <option value="6548">Comedy</option>
-                  <option value="5763">Drama</option>
-                  <option value="8711">Horror</option>
-                  <option value="13335">Musical</option>
-                  <option value="1255">Romance Drama</option>
-                </select>
-              </div>
+            <select id='genres'>
+                <option value="" disabled selected>Choose your genre</option>
+                <option value="801362">Action</option>
+                <option value="7442">Adventure</option>
+                <option value="7424">Anime</option>
+                <option value="6548">Comedy</option>
+                <option value="5763">Drama</option>
+                <option value="8711">Horror</option>
+                <option value="13335">Musical</option>
+                <option value="1255">Romance Drama</option>
+            </select>
+        </div>
+
+        <div class="input-field col s6">
+            <select id='selections'>
+                <option value="" disabled selected>Number of suggestions</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+
 
 
         <button id="searchBtn" class="btn">
             Movie Search
         </button>
 
-   
+
     </div>
     <div class="carousel carousel-slider center" style="height: 500px">
 
     </div>
 
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('select').formSelect();
         });
         console.log(localStorage.getItem("history"));
         console.log(localStorage);
         function creatingCarousel(ajax) {
             // starting dynamically creating carousel
+            var randomArr = ajax.ITEMS.length;
             var i;
-            for (i = 0; i < ajax.ITEMS.length; i++) {
+            for (i = 0; i < $("#selections").val(); i++) {
+                var random = Math.floor(Math.random() * randomArr);
                 //making carousel item div and giving it an id matching i and href matching the arr
                 var newDiv = $("<div>");
                 newDiv.addClass("carousel-item red white-text");
@@ -85,17 +99,17 @@
                 newImage.css("width", "300px");
                 newImage.css("border", "black 1px solid");
                 newImage.css("padding", "5px 5px 10px 5px");
-                console.log(ajax.ITEMS[i])
-                newImage.attr("src", ajax.ITEMS[i].image);
+                console.log(ajax.ITEMS[random])
+                newImage.attr("src", ajax.ITEMS[random].image);
                 //making mini div with movie information
                 var movieTitle = $("<h9>");
-                movieTitle.text(ajax.ITEMS[i].title);
+                movieTitle.text(ajax.ITEMS[random].title);
                 var moviePlot = $("<p>");
-                moviePlot.text(ajax.ITEMS[i].synopsis);
+                moviePlot.text(ajax.ITEMS[random].synopsis);
                 var movieRating = $("<p>");
-                movieRating.text(ajax.ITEMS[i].rating + " /10 as chosen by IMBD users");
+                movieRating.text(ajax.ITEMS[random].rating + " /10 as chosen by IMBD users");
                 var movieLength = $("<p>");
-                movieLength.text(ajax.ITEMS[i].runtime);
+                movieLength.text(ajax.ITEMS[random].runtime);
                 secondDiv.append(newImage);
                 secondDiv.append(movieTitle);
                 secondDiv.append(moviePlot);
@@ -177,7 +191,7 @@
 </html>
 
 
-    <!-- Object:
+<!-- Object:
 COUNT: "32"
 ITEMS: Array(32)
 0:
