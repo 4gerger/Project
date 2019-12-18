@@ -13,11 +13,12 @@
         <h1>
             Netflix Movie Selector
         </h1>
+        <div class="pulse"></div>
     </div>
-    <div class="pulse"></div>
+    
     <div class="container-fluid searching">
         <div class="row">
-            <div class="input-field col s2">
+            <div class="input-field col s3">
                 <select id='countries'>
                     <option value="" disabled selected>Choose your country</option>
                     <option value="23">Australia</option>
@@ -31,7 +32,7 @@
                 </select>
             </div>
 
-            <div class="input-field col s2">
+            <div class="input-field col s3">
                 <select id='genres'>
                     <option value="" disabled selected>Choose your genre</option>
                     <option value="801362">Action</option>
@@ -45,7 +46,7 @@
                 </select>
             </div>
 
-            <div class="input-field col s2">
+            <div class="input-field col s3">
                 <select id='selections'>
                     <option value="" disabled selected>Number of suggestions</option>
                     <option value="1">1</option>
@@ -56,7 +57,7 @@
                 </select>
             </div>
 
-            <button id="searchBtn" class="btn col s2">
+            <button id="searchBtn" class="btn col s3">
                 Movie Search
             </button>
         </div>
@@ -71,11 +72,7 @@
         $(document).ready(function () {
             $('select').formSelect();
         
-            $('.carousel.carousel-slider').carousel(
-            {
-                fullWidth: true,
-                indicators: true
-            });
+           
         });
 
         function creatingCarousel(ajax) {
@@ -115,20 +112,28 @@
                 movieRating.text(ajax.ITEMS[random].rating + " /10 as chosen by IMBD users");
                 var movieLength = $("<p>");
                 movieLength.text(ajax.ITEMS[random].runtime);
+                console.log(1);
                 secondDiv.append(newImage);
                 secondDiv.append(movieTitle);
                 secondDiv.append(moviePlot);
                 secondDiv.append(movieRating);
                 secondDiv.append(movieLength);
                 newDiv.append(secondDiv);
+                console.log(2);
                 $(".carousel").append(newDiv);
+                console.log(3);
             }
+            $('.carousel.carousel-slider').carousel(
+            {
+                fullWidth: true,
+                indicators: true
+            });
           
         };
         var historyObject = JSON.parse(localStorage.getItem("history"));
         
         if (historyObject != null) {
-          console.log(historyObject.ITEMS)
+          
 
             for (i = 0; i < historyObject.ITEMS.length; i++) {
                
@@ -151,7 +156,7 @@
                 newImage.css("width", "300px");
                 newImage.css("border", "black 1px solid");
                 newImage.css("padding", "5px 5px 10px 5px");
-                console.log(historyObject.ITEMS[i])
+               
                 newImage.attr("src", historyObject.ITEMS[i].image);
                 //making mini div with movie information
                 var movieTitle = $("<h9>");
@@ -170,6 +175,11 @@
                 newDiv.append(secondDiv);
                 $(".carousel").append(newDiv);
             }
+             $('.carousel.carousel-slider').carousel(
+            {
+                fullWidth: true,
+                indicators: true
+            });
         } else {
         }
         $("#searchBtn").on("click", function () {
@@ -182,9 +192,9 @@
             watchNowBtn.append(watchNowBtnAppearance);
             $(".pulse").append(watchNowBtn);
             var countryCode = $("#countries").val();
-            console.log(countryCode);
+         
             var genreCode = $("#genres").val();
-            console.log(genreCode);
+        
             var queryURL = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?"
             queryURL += "q=get:new1000-"
             queryURL += "!1900,2018-"
@@ -216,14 +226,15 @@
             //f42dc959c3fcbced717420fd247f1092735c1
             $.ajax(settings).done(function (response) {
                 var parse = JSON.stringify(response);
+                localStorage.clear();
                 localStorage.setItem("history", parse);
-                console.log(parse);
+           
                 var randomArr = response.ITEMS.length;
                 var whatMovie = Math.floor(Math.random() * randomArr);
                 var btnTitle = response.ITEMS[whatMovie].netflixid;
                 var btnURL = "https://www.netflix.com/watch/" + btnTitle;
                 watchNowBtn.attr('href', btnURL);
-                console.log(btnURL);
+               
                 creatingCarousel(response);
             });
         })
