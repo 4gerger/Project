@@ -14,6 +14,15 @@ h1{
     text-align: center;
     text-shadow: 3px 2px #FFFFFF;
 }
+h2{
+    background-color: black;
+    color: red;
+    border-style: groove;
+    width: 100% !important;
+    margin: 0px 0px 0px 0px;
+    text-align: center;
+    text-shadow: 3px 2px #FFFFFF;
+}
 .container-fluid {
     margin: 10px 0px 0px 0px;
 }

@@ -15,7 +15,7 @@
         </h1>
         <div class="pulse"></div>
     </div>
-    
+
     <div class="container-fluid searching">
         <div class="row">
             <div class="input-field col s3">
@@ -67,137 +67,159 @@
     <div class="carousel carousel-slider center" style="height: 600px; background-color:darkred">
 
     </div>
+    <div class="container-fluid #d50000 white header">
+            <h2>
+               New Releases
+            </h2>
+            <div class="pulse"></div>
+    <div class="row" style = "background-color: darkred; ">
+        <div class="col s3"><img class="materialboxed" data-caption="PlaceHolder" width="200"
+                src="https://lorempixel.com/800/400/nature/4"></div>
+        <div class="col s3"><img class="materialboxed" data-caption="PlaceHolder" width="200"
+                src="https://lorempixel.com/800/400/nature/4"></div>
+                <div class="col s3"><img class="materialboxed" data-caption="PlaceHolder" width="200"
+                    src="https://lorempixel.com/800/400/nature/4"></div>
+            <div class="col s3"><img class="materialboxed" data-caption="PlaceHolder" width="200"
+                    src="https://lorempixel.com/800/400/nature/4"></div>
+                
+
+
+    </div>
+
+
+
 
     <script>
         $(document).ready(function () {
             $('select').formSelect();
-        
-           
+            $('.materialboxed').materialbox();
+
+
         });
-       
+
 
         function creatingCarousel(ajax) {
             // starting dynamically creating carousel
             var randomArr = ajax.ITEMS.length;
             if ($("#selections").val() <= ajax.ITEMS.length) {
-            var i;
-            for (i = 0; i < $("#selections").val(); i++) {
-                var random = Math.floor(Math.random() * randomArr);
-                //making carousel item div and giving it an id matching i and href matching the arr
-                var newDiv = $("<div>");
-                newDiv.addClass("carousel-item red white-text");
-                newDiv.css("border", "1px solid black");
-                newDiv.css("height", "800px");
-                var secondDiv = $("<div>");
-                secondDiv.addClass("valign-wrapper");
-                secondDiv.css("background-color", "black");
-                secondDiv.css("width", "85%");
-                secondDiv.css("position", "absolute");
-                secondDiv.css("top", "5%");
-                secondDiv.css("right", "5%");
-                secondDiv.css("border-radius", "4px");
-                secondDiv.css("border", "white solid 1px");
-                //making new image with movie poster from response
-                var newImage = $("<img>");
-                newImage.addClass("responsive-img");
-                newImage.css("width", "300px");
-                newImage.css("border", "black 1px solid");
-                newImage.css("padding", "5px 5px 10px 5px");
-                console.log(ajax.ITEMS[random])
-                newImage.attr("src", ajax.ITEMS[random].image);
-                //making mini div with movie information
-                var movieTitle = $("<h9>");
-                movieTitle.text(ajax.ITEMS[random].title);
-                var moviePlot = $("<p>");
-                moviePlot.text(ajax.ITEMS[random].synopsis);
-                var movieRating = $("<p>");
-                movieRating.text(ajax.ITEMS[random].rating + " /10 as chosen by IMBD users");
-                var movieLength = $("<p>");
-                movieLength.text(ajax.ITEMS[random].runtime);
-                console.log(1);
-                secondDiv.append(newImage);
-                secondDiv.append(movieTitle);
-                secondDiv.append(moviePlot);
-                secondDiv.append(movieRating);
-                secondDiv.append(movieLength);
-                newDiv.append(secondDiv);
-                console.log(2);
-                $(".carousel").append(newDiv);
-                console.log(3);
+                var i;
+                for (i = 0; i < $("#selections").val(); i++) {
+                    var random = Math.floor(Math.random() * randomArr);
+                    //making carousel item div and giving it an id matching i and href matching the arr
+                    var newDiv = $("<div>");
+                    newDiv.addClass("carousel-item red white-text");
+                    newDiv.css("border", "1px solid black");
+                    newDiv.css("height", "800px");
+                    var secondDiv = $("<div>");
+                    secondDiv.addClass("valign-wrapper");
+                    secondDiv.css("background-color", "black");
+                    secondDiv.css("width", "85%");
+                    secondDiv.css("position", "absolute");
+                    secondDiv.css("top", "5%");
+                    secondDiv.css("right", "5%");
+                    secondDiv.css("border-radius", "4px");
+                    secondDiv.css("border", "white solid 1px");
+                    //making new image with movie poster from response
+                    var newImage = $("<img>");
+                    newImage.addClass("responsive-img");
+                    newImage.css("width", "300px");
+                    newImage.css("border", "black 1px solid");
+                    newImage.css("padding", "5px 5px 10px 5px");
+                    console.log(ajax.ITEMS[random])
+                    newImage.attr("src", ajax.ITEMS[random].image);
+                    //making mini div with movie information
+                    var movieTitle = $("<h9>");
+                    movieTitle.text(ajax.ITEMS[random].title);
+                    var moviePlot = $("<p>");
+                    moviePlot.text(ajax.ITEMS[random].synopsis);
+                    var movieRating = $("<p>");
+                    movieRating.text(ajax.ITEMS[random].rating + " /10 as chosen by IMBD users");
+                    var movieLength = $("<p>");
+                    movieLength.text(ajax.ITEMS[random].runtime);
+                    console.log(1);
+                    secondDiv.append(newImage);
+                    secondDiv.append(movieTitle);
+                    secondDiv.append(moviePlot);
+                    secondDiv.append(movieRating);
+                    secondDiv.append(movieLength);
+                    newDiv.append(secondDiv);
+                    console.log(2);
+                    $(".carousel").append(newDiv);
+                    console.log(3);
+                }
+                $('.carousel.carousel-slider').carousel(
+                    {
+                        fullWidth: true,
+                        indicators: true
+                    });
             }
-            $('.carousel.carousel-slider').carousel(
-            {
-                fullWidth: true,
-                indicators: true
-            });
-        }
-        else {
-            if (ajax.ITEMS.length === 0) {
+            else {
+                if (ajax.ITEMS.length === 0) {
                     var newDiv = $("<div>");
                     newDiv.css("color", "white");
                     newDiv.text("No movies found.");
                     $(".carousel").append(newDiv);
                 }
-            else {
-            var i;
-            for (i = 0; i < ajax.ITEMS.length; i++) {
-                var random = Math.floor(Math.random() * randomArr);
-                //making carousel item div and giving it an id matching i and href matching the arr
-                var newDiv = $("<div>");
-                newDiv.addClass("carousel-item red white-text");
-                newDiv.css("border", "1px solid black");
-                newDiv.css("height", "800px");
-                var secondDiv = $("<div>");
-                secondDiv.addClass("valign-wrapper");
-                secondDiv.css("background-color", "black");
-                secondDiv.css("width", "85%");
-                secondDiv.css("position", "absolute");
-                secondDiv.css("top", "5%");
-                secondDiv.css("right", "5%");
-                secondDiv.css("border-radius", "4px");
-                secondDiv.css("border", "white solid 1px");
-                //making new image with movie poster from response
-                var newImage = $("<img>");
-                newImage.addClass("responsive-img");
-                newImage.css("width", "300px");
-                newImage.css("border", "black 1px solid");
-                newImage.css("padding", "5px 5px 10px 5px");
-                console.log(ajax.ITEMS[random])
-                newImage.attr("src", ajax.ITEMS[random].image);
-                //making mini div with movie information
-                var movieTitle = $("<h9>");
-                movieTitle.text(ajax.ITEMS[random].title);
-                var moviePlot = $("<p>");
-                moviePlot.text(ajax.ITEMS[random].synopsis);
-                var movieRating = $("<p>");
-                movieRating.text(ajax.ITEMS[random].rating + " /10 as chosen by IMBD users");
-                var movieLength = $("<p>");
-                movieLength.text(ajax.ITEMS[random].runtime);
-                console.log(1);
-                secondDiv.append(newImage);
-                secondDiv.append(movieTitle);
-                secondDiv.append(moviePlot);
-                secondDiv.append(movieRating);
-                secondDiv.append(movieLength);
-                newDiv.append(secondDiv);
-                console.log(2);
-                $(".carousel").append(newDiv);
-                console.log(3);
+                else {
+                    var i;
+                    for (i = 0; i < ajax.ITEMS.length; i++) {
+                        var random = Math.floor(Math.random() * randomArr);
+                        //making carousel item div and giving it an id matching i and href matching the arr
+                        var newDiv = $("<div>");
+                        newDiv.addClass("carousel-item red white-text");
+                        newDiv.css("border", "1px solid black");
+                        newDiv.css("height", "800px");
+                        var secondDiv = $("<div>");
+                        secondDiv.addClass("valign-wrapper");
+                        secondDiv.css("background-color", "black");
+                        secondDiv.css("width", "85%");
+                        secondDiv.css("position", "absolute");
+                        secondDiv.css("top", "5%");
+                        secondDiv.css("right", "5%");
+                        secondDiv.css("border-radius", "4px");
+                        secondDiv.css("border", "white solid 1px");
+                        //making new image with movie poster from response
+                        var newImage = $("<img>");
+                        newImage.addClass("responsive-img");
+                        newImage.css("width", "300px");
+                        newImage.css("border", "black 1px solid");
+                        newImage.css("padding", "5px 5px 10px 5px");
+                        console.log(ajax.ITEMS[random])
+                        newImage.attr("src", ajax.ITEMS[random].image);
+                        //making mini div with movie information
+                        var movieTitle = $("<h9>");
+                        movieTitle.text(ajax.ITEMS[random].title);
+                        var moviePlot = $("<p>");
+                        moviePlot.text(ajax.ITEMS[random].synopsis);
+                        var movieRating = $("<p>");
+                        movieRating.text(ajax.ITEMS[random].rating + " /10 as chosen by IMBD users");
+                        var movieLength = $("<p>");
+                        movieLength.text(ajax.ITEMS[random].runtime);
+                        console.log(1);
+                        secondDiv.append(newImage);
+                        secondDiv.append(movieTitle);
+                        secondDiv.append(moviePlot);
+                        secondDiv.append(movieRating);
+                        secondDiv.append(movieLength);
+                        newDiv.append(secondDiv);
+                        console.log(2);
+                        $(".carousel").append(newDiv);
+                        console.log(3);
+                    }
+                    $('.carousel.carousel-slider').carousel(
+                        {
+                            fullWidth: true,
+                            indicators: true
+                        });
+                }
             }
-            $('.carousel.carousel-slider').carousel(
-            {
-                fullWidth: true,
-                indicators: true
-            });
-        }
-        }
-          
+
         };
         var historyObject = JSON.parse(localStorage.getItem("history"));
-        
-        if (historyObject != null && historyObject !=0 && historyObject!=undefined) {
+
+        if (historyObject != null && historyObject != 0 && historyObject != undefined) {
             for (i = 0; i < historyObject.ITEMS.length; i++) {
-               
+
                 var newDiv = $("<div>");
                 newDiv.addClass("carousel-item red white-text");
                 newDiv.css("border", "1px solid black");
@@ -217,7 +239,7 @@
                 newImage.css("width", "300px");
                 newImage.css("border", "black 1px solid");
                 newImage.css("padding", "5px 5px 10px 5px");
-               
+
                 newImage.attr("src", historyObject.ITEMS[i].image);
                 //making mini div with movie information
                 var movieTitle = $("<h9>");
@@ -236,11 +258,11 @@
                 newDiv.append(secondDiv);
                 $(".carousel").append(newDiv);
             }
-             $('.carousel.carousel-slider').carousel(
-            {
-                fullWidth: true,
-                indicators: true
-            });
+            $('.carousel.carousel-slider').carousel(
+                {
+                    fullWidth: true,
+                    indicators: true
+                });
         } else {
         }
         $("#searchBtn").on("click", function () {
@@ -253,9 +275,9 @@
             watchNowBtn.append(watchNowBtnAppearance);
             $(".pulse").append(watchNowBtn);
             var countryCode = $("#countries").val();
-         
+
             var genreCode = $("#genres").val();
-        
+
             var queryURL = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?"
             queryURL += "q=get:new1000-"
             queryURL += "!1900,2018-"
@@ -289,15 +311,15 @@
                 var parse = JSON.stringify(response);
                 localStorage.clear();
                 localStorage.setItem("history", parse);
-           
+
                 var randomArr = response.ITEMS.length;
-                if (randomArr > 0) { 
-                var whatMovie = Math.floor(Math.random() * randomArr);
-                var btnTitle = response.ITEMS[whatMovie].netflixid;
-                var btnURL = "https://www.netflix.com/watch/" + btnTitle;
-                watchNowBtn.attr('href', btnURL);
-            }
-               
+                if (randomArr > 0) {
+                    var whatMovie = Math.floor(Math.random() * randomArr);
+                    var btnTitle = response.ITEMS[whatMovie].netflixid;
+                    var btnURL = "https://www.netflix.com/watch/" + btnTitle;
+                    watchNowBtn.attr('href', btnURL);
+                }
+
                 creatingCarousel(response);
             });
         })
