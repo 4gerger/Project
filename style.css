@@ -1,28 +1,63 @@
-
 .btn {
     background-color: red !important;
-    border-radius: 4px !important; 
+    border-radius: 4px !important;
     border: 1px black solid !important;
+    margin-left: 5px;
+    margin-bottom: 5px;
 }
-
 h1{
     background-color: black;
-    color: white;
+    color: red;
     border-style: groove;
     width: 100% !important;
     margin: 0px 0px 0px 0px;
+    text-align: center;
+    text-shadow: 3px 2px #FFFFFF;
 }
-
-.container-fluid {
+h2{
+    background-color: black;
+    color: red;
+    border-style: groove;
+    width: 100% !important;
     margin: 0px 0px 0px 0px;
+    text-align: center;
+    text-shadow: 3px 2px #FFFFFF;
 }
-
+.container-fluid {
+    margin: 10px 0px 0px 0px;
+}
 .hey {
     background-image: "https://broadcastingandmedia.com/img/logos/1550565848NetflixSmall.png";
-    width: 200px;
+    width: 250px;
     background-color: black;
     color: white;
-    font-size: 5px;
+    font-size: 3px;
     border-radius: 0;
     border: 1px red solid;
+    position: fixed;
+    right: 5%;
+    top: 4%;
+}
+#searchBtn {
+    background-color: white !important;
+    color: black !important;
+    margin-top: 15px;
+    position: absolute;
+    right: 2px;
+}
+#searchBtn:active, #searchBtn:visited, #searchBtn:hover {
+    background-color: white !important;
+    color: black !important;
+    border: red 1px solid !important;
+    position: absolute;
+    right: 2px;
+}
+.header {
+    margin-top: 0px;
+    padding: 10px 0px 10px 0px;
+}
+
+.input-field {
+    width : 25% !important;
+    color: black;
 }
