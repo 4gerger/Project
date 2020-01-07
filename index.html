@@ -152,7 +152,6 @@
                     var imgURL = response.ITEMS[whichMovie].image;
                     var synop = response.ITEMS[whichMovie].synopsis;
                     var id = '#' + (i + 1);
-                    console.log(id);
                     $(id).attr('src', imgURL);
                     $(id).attr('data-caption', synop);
                     }
@@ -203,7 +202,7 @@
                     newImage.css("width", "300px");
                     newImage.css("border", "black 1px solid");
                     newImage.css("padding", "5px 5px 10px 5px");
-                    console.log(ajax.ITEMS[random])
+                    
                     newImage.attr("src", ajax.ITEMS[random].image);
                     //making mini div with movie information
                     var movieTitle = $("<h9>");
@@ -214,16 +213,16 @@
                     movieRating.text(ajax.ITEMS[random].rating + " /10 as chosen by IMBD users");
                     var movieLength = $("<p>");
                     movieLength.text(ajax.ITEMS[random].runtime);
-                    console.log(1);
+               
                     secondDiv.append(newImage);
                     secondDiv.append(movieTitle);
                     secondDiv.append(moviePlot);
                     secondDiv.append(movieRating);
                     secondDiv.append(movieLength);
                     newDiv.append(secondDiv);
-                    console.log(2);
+       
                     $(".carousel").append(newDiv);
-                    console.log(3);
+       
                 }
                 $('.carousel.carousel-slider').carousel(
                     {
@@ -262,7 +261,7 @@
                         newImage.css("width", "300px");
                         newImage.css("border", "black 1px solid");
                         newImage.css("padding", "5px 5px 10px 5px");
-                        console.log(ajax.ITEMS[random])
+               
                         newImage.attr("src", ajax.ITEMS[random].image);
                         //making mini div with movie information
                         var movieTitle = $("<h9>");
@@ -273,16 +272,16 @@
                         movieRating.text(ajax.ITEMS[random].rating + " /10 as chosen by IMBD users");
                         var movieLength = $("<p>");
                         movieLength.text(ajax.ITEMS[random].runtime);
-                        console.log(1);
+        
                         secondDiv.append(newImage);
                         secondDiv.append(movieTitle);
                         secondDiv.append(moviePlot);
                         secondDiv.append(movieRating);
                         secondDiv.append(movieLength);
                         newDiv.append(secondDiv);
-                        console.log(2);
+            
                         $(".carousel").append(newDiv);
-                        console.log(3);
+                 
                     }
                     $('.carousel.carousel-slider').carousel(
                         {
@@ -294,8 +293,9 @@
 
         };
         var historyObject = JSON.parse(localStorage.getItem("history"));
+        console.log(historyObject);
 
-        if (historyObject != null && historyObject != 0 && historyObject != undefined) {
+        if (historyObject !== null && historyObject !== 0 && historyObject !== undefined) {
             for (i = 0; i < historyObject.ITEMS.length; i++) {
 
                 var newDiv = $("<div>");
@@ -344,6 +344,7 @@
         } else {
         }
         $("#searchBtn").on("click", function () {
+         
             $(".carousel").html("");
             var watchNowBtn = $("<a>");
             watchNowBtn.addClass("btn-floating pulse hey");
