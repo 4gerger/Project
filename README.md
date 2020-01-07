@@ -12,5 +12,5 @@ The application allows you to:
  * utilies a carousel wheel to display posters, ratings, a short synopsis and the movie names for your viewing pleasure
  
 ## What Does it look like?
-![Image]()
+![Image](assets/screenshot.png)
 Have a look for yourself here: [Link]()
