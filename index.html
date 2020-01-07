@@ -13,7 +13,7 @@
         <h1>
             Netflix Movie Selector
         </h1>
-        <div class="pulse"></div>
+        <div class="pulse" id="pulsing"></div>
     </div>
 
     <div class="container-fluid searching">
@@ -313,9 +313,11 @@
             $(".carousel").html("");
             var watchNowBtn = $("<a>");
             watchNowBtn.addClass("btn-floating pulse hey");
+            watchNowBtn.attr("id", "pulsebutton");
             var watchNowBtnAppearance = $("<i>");
             watchNowBtnAppearance.addClass("material-icons");
             watchNowBtnAppearance.text("Watch Random Now!");
+            watchNowBtnAppearance.attr("id", "pulsebtn");
             watchNowBtn.append(watchNowBtnAppearance);
             $(".pulse").append(watchNowBtn);
             var countryCode = $("#countries").val();
