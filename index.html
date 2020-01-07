@@ -64,7 +64,7 @@
 
 
     </div>
-    <div class="carousel carousel-slider center" style="height: 600px; background-color:darkred">
+    <div class="carousel carousel-slider center" style="height: 600px; background-color:darkred; margin-bottom: 50px;">
 
     </div>
     <div class="container-fluid #d50000 white header">
@@ -96,6 +96,7 @@
 
             function ajaxCall(currentCity) 
             {
+                
                 var codesForCountries = 
                 {
                 'AU': '23',
@@ -112,7 +113,9 @@
 
                 if (codesForCountries[code] !== null && codesForCountries[code] !== undefined && codesForCountries[code] !== 0) 
                 {
+                    
                     var whatCode = codesForCountries[code];
+                
                     var search = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?"
             search += "q=get:new1000-"
             search += "!1900,2018-"
@@ -130,6 +133,7 @@
             search += "&ob=Relevance"
             search += "&p=1"
             search += "&sa=and"
+            
             var settings =
             {
                 "async": true,
@@ -143,7 +147,7 @@
             }
             //f42dc959c3fcbced717420fd247f1092735c1
             $.ajax(settings).done(function (response) {
-
+                
                 var randomArray = response.ITEMS.length;
                 if (randomArray > 0) {
                     
@@ -152,17 +156,17 @@
                     var imgURL = response.ITEMS[whichMovie].image;
                     var synop = response.ITEMS[whichMovie].synopsis;
                     var id = '#' + (i + 1);
-                    console.log(id);
+                    var netID = response.ITEMS[whichMovie].netflixid;
+                    var netURL = "https://www.netflix.com/watch/" + netID;
                     $(id).attr('src', imgURL);
+                    $(id).attr('href', netURL);
                     $(id).attr('data-caption', synop);
                     }
                     
                 }
             });
                 }
-                else {
-
-                }
+                
             }
 
             $.get("https://ipinfo.io", function(response) {
@@ -203,7 +207,7 @@
                     newImage.css("width", "300px");
                     newImage.css("border", "black 1px solid");
                     newImage.css("padding", "5px 5px 10px 5px");
-                    console.log(ajax.ITEMS[random])
+                    
                     newImage.attr("src", ajax.ITEMS[random].image);
                     //making mini div with movie information
                     var movieTitle = $("<h9>");
@@ -214,16 +218,16 @@
                     movieRating.text(ajax.ITEMS[random].rating + " /10 as chosen by IMBD users");
                     var movieLength = $("<p>");
                     movieLength.text(ajax.ITEMS[random].runtime);
-                    console.log(1);
+               
                     secondDiv.append(newImage);
                     secondDiv.append(movieTitle);
                     secondDiv.append(moviePlot);
                     secondDiv.append(movieRating);
                     secondDiv.append(movieLength);
                     newDiv.append(secondDiv);
-                    console.log(2);
+       
                     $(".carousel").append(newDiv);
-                    console.log(3);
+       
                 }
                 $('.carousel.carousel-slider').carousel(
                     {
@@ -262,7 +266,7 @@
                         newImage.css("width", "300px");
                         newImage.css("border", "black 1px solid");
                         newImage.css("padding", "5px 5px 10px 5px");
-                        console.log(ajax.ITEMS[random])
+               
                         newImage.attr("src", ajax.ITEMS[random].image);
                         //making mini div with movie information
                         var movieTitle = $("<h9>");
@@ -273,16 +277,16 @@
                         movieRating.text(ajax.ITEMS[random].rating + " /10 as chosen by IMBD users");
                         var movieLength = $("<p>");
                         movieLength.text(ajax.ITEMS[random].runtime);
-                        console.log(1);
+        
                         secondDiv.append(newImage);
                         secondDiv.append(movieTitle);
                         secondDiv.append(moviePlot);
                         secondDiv.append(movieRating);
                         secondDiv.append(movieLength);
                         newDiv.append(secondDiv);
-                        console.log(2);
+            
                         $(".carousel").append(newDiv);
-                        console.log(3);
+                 
                     }
                     $('.carousel.carousel-slider').carousel(
                         {
@@ -293,10 +297,73 @@
             }
 
         };
-        var historyObject = JSON.parse(localStorage.getItem("history"));
+        
+        $("#searchBtn").on("click", function () {
+         
+            $(".carousel").html("");
+            var watchNowBtn = $("<a>");
+            watchNowBtn.addClass("btn-floating pulse hey");
+            var watchNowBtnAppearance = $("<i>");
+            watchNowBtnAppearance.addClass("material-icons");
+            watchNowBtnAppearance.text("Watch Random Now!");
+            watchNowBtn.append(watchNowBtnAppearance);
+            $(".pulse").append(watchNowBtn);
+            var countryCode = $("#countries").val();
 
-        if (historyObject != null && historyObject != 0 && historyObject != undefined) {
-            for (i = 0; i < historyObject.ITEMS.length; i++) {
+            var genreCode = $("#genres").val();
+
+            var queryURL = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?"
+            queryURL += "q=get:new1000-"
+            queryURL += "!1900,2018-"
+            queryURL += "!0,5-"
+            queryURL += "!0,10-"
+            queryURL += "!" + genreCode + "-"
+            queryURL += "!Any-"
+            queryURL += "!Any-"
+            queryURL += "!Any-"
+            queryURL += "!gt100-"
+            queryURL += "!{ }"
+            queryURL += "&t=ns"
+            queryURL += "&cl=" + countryCode
+            queryURL += "&st=adv"
+            queryURL += "&ob=Relevance"
+            queryURL += "&p=1"
+            queryURL += "&sa=and"
+            var settings =
+            {
+                "async": true,
+                "crossDomain": true,
+                "url": queryURL,
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com",
+                    "x-rapidapi-key": "f1bd960599msh649fc643e8fdbcep118c63jsn3b463af5d748"
+                }
+            }
+            //f42dc959c3fcbced717420fd247f1092735c1
+            $.ajax(settings).done(function (response) {
+                var parse = JSON.stringify(response);
+                localStorage.clear();
+                console.log(parse);
+                localStorage.setItem("history", parse);
+
+                var randomArr = response.ITEMS.length;
+                if (randomArr > 0) {
+                    var whatMovie = Math.floor(Math.random() * randomArr);
+                    var btnTitle = response.ITEMS[whatMovie].netflixid;
+                    var btnURL = "https://www.netflix.com/watch/" + btnTitle;
+                    watchNowBtn.attr('href', btnURL);
+                }
+
+                creatingCarousel(response);
+            });
+        })
+
+        var historyObject = JSON.parse(localStorage.getItem("history"));
+        console.log(historyObject);
+
+        if (historyObject !== null && historyObject !== 0 && historyObject !== undefined && historyObject !== "[object Object],[object Object]") {
+            for (i = 0; i < historyObject.ITEMS.length && i < 4; i++) {
 
                 var newDiv = $("<div>");
                 newDiv.addClass("carousel-item red white-text");
@@ -343,64 +410,7 @@
                 });
         } else {
         }
-        $("#searchBtn").on("click", function () {
-            $(".carousel").html("");
-            var watchNowBtn = $("<a>");
-            watchNowBtn.addClass("btn-floating pulse hey");
-            var watchNowBtnAppearance = $("<i>");
-            watchNowBtnAppearance.addClass("material-icons");
-            watchNowBtnAppearance.text("Watch Random Now!");
-            watchNowBtn.append(watchNowBtnAppearance);
-            $(".pulse").append(watchNowBtn);
-            var countryCode = $("#countries").val();
 
-            var genreCode = $("#genres").val();
-
-            var queryURL = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?"
-            queryURL += "q=get:new1000-"
-            queryURL += "!1900,2018-"
-            queryURL += "!0,5-"
-            queryURL += "!0,10-"
-            queryURL += "!" + genreCode + "-"
-            queryURL += "!Any-"
-            queryURL += "!Any-"
-            queryURL += "!Any-"
-            queryURL += "!gt100-"
-            queryURL += "!{ }"
-            queryURL += "&t=ns"
-            queryURL += "&cl=" + countryCode
-            queryURL += "&st=adv"
-            queryURL += "&ob=Relevance"
-            queryURL += "&p=1"
-            queryURL += "&sa=and"
-            var settings =
-            {
-                "async": true,
-                "crossDomain": true,
-                "url": queryURL,
-                "method": "GET",
-                "headers": {
-                    "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com",
-                    "x-rapidapi-key": "f1bd960599msh649fc643e8fdbcep118c63jsn3b463af5d748"
-                }
-            }
-            //f42dc959c3fcbced717420fd247f1092735c1
-            $.ajax(settings).done(function (response) {
-                var parse = JSON.stringify(response);
-                localStorage.clear();
-                localStorage.setItem("history", parse);
-
-                var randomArr = response.ITEMS.length;
-                if (randomArr > 0) {
-                    var whatMovie = Math.floor(Math.random() * randomArr);
-                    var btnTitle = response.ITEMS[whatMovie].netflixid;
-                    var btnURL = "https://www.netflix.com/watch/" + btnTitle;
-                    watchNowBtn.attr('href', btnURL);
-                }
-
-                creatingCarousel(response);
-            });
-        })
         $('.dropdown-trigger').dropdown
             ({
             });
