@@ -69,7 +69,7 @@
     </div>
     <div class="container-fluid #d50000 white header">
             <h2>
-               New Releases
+               Random Releases In Your Country
             </h2>
             <div class="pulse"></div>
     <div class="row" style = "background-color: darkred; ">
@@ -100,11 +100,11 @@
                 var codesForCountries = 
                 {
                 'AU': '23',
-                'Canada': '33',
-                'Greece': '327',
-                'India': '337',
-                'Ireland': '55',
-                'Pakistan': '391',
+                'CA': '33',
+                'GR': '327',
+                'IN': '337',
+                'IE': '55',
+                'PK': '391',
                 'UK': '46',
                 'US': '78'
                 }
@@ -115,13 +115,16 @@
                 {
                     
                     var whatCode = codesForCountries[code];
-                
+                    var genreArray = ["801362", "7442","7424", "6548", "5763", "8711", "13335", "1255"];
+                    var randomNum = Math.floor(Math.random() * genreArray.length);
+                    var whatGenre = genreArray[randomNum];
+                    
                     var search = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?"
             search += "q=get:new1000-"
             search += "!1900,2018-"
             search += "!0,5-"
             search += "!0,10-"
-            search += "!" + "6548" + "-"
+            search += "!" + whatGenre + "-"
             search += "!Any-"
             search += "!Any-"
             search += "!Any-"
