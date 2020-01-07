@@ -64,7 +64,7 @@
 
 
     </div>
-    <div class="carousel carousel-slider center" style="height: 600px; background-color:darkred; margin-bottom: 50px;">
+    <div class="carousel carousel-slider center moviez">
 
     </div>
     <div class="container-fluid #d50000 white header">
@@ -208,7 +208,14 @@
                     newImage.css("border", "black 1px solid");
                     newImage.css("padding", "5px 5px 10px 5px");
                     
+                    var newLink = $("<a>");
+                    var netflixID = ajax.ITEMS[random].netflixid;
+                    var netflixURL = "https://www.netflix.com/watch/" + netflixID;
+                    newLink.attr('href', netflixURL);
+                    newLink.attr('target', "_blank");
+                    
                     newImage.attr("src", ajax.ITEMS[random].image);
+                    newLink.append(newImage);
                     //making mini div with movie information
                     var movieTitle = $("<h9>");
                     movieTitle.text(ajax.ITEMS[random].title);
@@ -219,7 +226,7 @@
                     var movieLength = $("<p>");
                     movieLength.text(ajax.ITEMS[random].runtime);
                
-                    secondDiv.append(newImage);
+                    secondDiv.append(newLink);
                     secondDiv.append(movieTitle);
                     secondDiv.append(moviePlot);
                     secondDiv.append(movieRating);
@@ -299,6 +306,9 @@
         };
         
         $("#searchBtn").on("click", function () {
+
+            if ($("#countries").val() !== null && $("#genres").val() !== null && $("#selections").val() !== null)
+            { 
          
             $(".carousel").html("");
             var watchNowBtn = $("<a>");
@@ -357,10 +367,17 @@
 
                 creatingCarousel(response);
             });
+        } else
+        {
+            $(".moviez").html("");
+            var newDiv = $("<div>");
+                    newDiv.css("color", "white");
+                    newDiv.text("Make sure all drop-down menus have selected an input.");
+                    $(".carousel").append(newDiv);
+        }
         })
 
         var historyObject = JSON.parse(localStorage.getItem("history"));
-        console.log(historyObject);
 
         if (historyObject !== null && historyObject !== 0 && historyObject !== undefined && historyObject !== "[object Object],[object Object]") {
             for (i = 0; i < historyObject.ITEMS.length && i < 4; i++) {
@@ -385,6 +402,12 @@
                 newImage.css("border", "black 1px solid");
                 newImage.css("padding", "5px 5px 10px 5px");
 
+                var newLink = $("<a>");
+                    var netflixID = historyObject.ITEMS[i].netflixid;
+                    var netflixURL = "https://www.netflix.com/watch/" + netflixID;
+                    newLink.attr('href', netflixURL);
+                    newLink.attr('target', "_blank");
+                    
                 newImage.attr("src", historyObject.ITEMS[i].image);
                 //making mini div with movie information
                 var movieTitle = $("<h9>");
@@ -395,7 +418,8 @@
                 movieRating.text(historyObject.ITEMS[i].rating + " /10 as chosen by IMBD users");
                 var movieLength = $("<p>");
                 movieLength.text(historyObject.ITEMS[i].runtime);
-                secondDiv.append(newImage);
+                newLink.append(newImage);
+                secondDiv.append(newLink);
                 secondDiv.append(movieTitle);
                 secondDiv.append(moviePlot);
                 secondDiv.append(movieRating);
