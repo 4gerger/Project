@@ -64,7 +64,7 @@
 
 
     </div>
-    <div class="carousel carousel-slider center" style="height: 600px; background-color:darkred">
+    <div class="carousel carousel-slider center" style="height: 600px; background-color:darkred; margin-bottom: 50px;">
 
     </div>
     <div class="container-fluid #d50000 white header">
@@ -96,6 +96,7 @@
 
             function ajaxCall(currentCity) 
             {
+                
                 var codesForCountries = 
                 {
                 'AU': '23',
@@ -112,7 +113,9 @@
 
                 if (codesForCountries[code] !== null && codesForCountries[code] !== undefined && codesForCountries[code] !== 0) 
                 {
+                    
                     var whatCode = codesForCountries[code];
+                
                     var search = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?"
             search += "q=get:new1000-"
             search += "!1900,2018-"
@@ -130,6 +133,7 @@
             search += "&ob=Relevance"
             search += "&p=1"
             search += "&sa=and"
+            
             var settings =
             {
                 "async": true,
@@ -143,7 +147,7 @@
             }
             //f42dc959c3fcbced717420fd247f1092735c1
             $.ajax(settings).done(function (response) {
-
+                
                 var randomArray = response.ITEMS.length;
                 if (randomArray > 0) {
                     
@@ -152,16 +156,17 @@
                     var imgURL = response.ITEMS[whichMovie].image;
                     var synop = response.ITEMS[whichMovie].synopsis;
                     var id = '#' + (i + 1);
+                    var netID = response.ITEMS[whichMovie].netflixid;
+                    var netURL = "https://www.netflix.com/watch/" + netID;
                     $(id).attr('src', imgURL);
+                    $(id).attr('href', netURL);
                     $(id).attr('data-caption', synop);
                     }
                     
                 }
             });
                 }
-                else {
-
-                }
+                
             }
 
             $.get("https://ipinfo.io", function(response) {
@@ -292,57 +297,7 @@
             }
 
         };
-        var historyObject = JSON.parse(localStorage.getItem("history"));
-        console.log(historyObject);
-
-        if (historyObject !== null && historyObject !== 0 && historyObject !== undefined) {
-            for (i = 0; i < historyObject.ITEMS.length; i++) {
-
-                var newDiv = $("<div>");
-                newDiv.addClass("carousel-item red white-text");
-                newDiv.css("border", "1px solid black");
-                newDiv.css("height", "800px");
-                var secondDiv = $("<div>");
-                secondDiv.addClass("valign-wrapper");
-                secondDiv.css("background-color", "black");
-                secondDiv.css("width", "85%");
-                secondDiv.css("position", "absolute");
-                secondDiv.css("top", "5%");
-                secondDiv.css("right", "5%");
-                secondDiv.css("border-radius", "4px");
-                secondDiv.css("border", "white solid 1px");
-                //making new image with movie poster from response
-                var newImage = $("<img>");
-                newImage.addClass("responsive-img");
-                newImage.css("width", "300px");
-                newImage.css("border", "black 1px solid");
-                newImage.css("padding", "5px 5px 10px 5px");
-
-                newImage.attr("src", historyObject.ITEMS[i].image);
-                //making mini div with movie information
-                var movieTitle = $("<h9>");
-                movieTitle.text(historyObject.ITEMS[i].title);
-                var moviePlot = $("<p>");
-                moviePlot.text(historyObject.ITEMS[i].synopsis);
-                var movieRating = $("<p>");
-                movieRating.text(historyObject.ITEMS[i].rating + " /10 as chosen by IMBD users");
-                var movieLength = $("<p>");
-                movieLength.text(historyObject.ITEMS[i].runtime);
-                secondDiv.append(newImage);
-                secondDiv.append(movieTitle);
-                secondDiv.append(moviePlot);
-                secondDiv.append(movieRating);
-                secondDiv.append(movieLength);
-                newDiv.append(secondDiv);
-                $(".carousel").append(newDiv);
-            }
-            $('.carousel.carousel-slider').carousel(
-                {
-                    fullWidth: true,
-                    indicators: true
-                });
-        } else {
-        }
+        
         $("#searchBtn").on("click", function () {
          
             $(".carousel").html("");
@@ -389,6 +344,7 @@
             $.ajax(settings).done(function (response) {
                 var parse = JSON.stringify(response);
                 localStorage.clear();
+                console.log(parse);
                 localStorage.setItem("history", parse);
 
                 var randomArr = response.ITEMS.length;
@@ -402,6 +358,59 @@
                 creatingCarousel(response);
             });
         })
+
+        var historyObject = JSON.parse(localStorage.getItem("history"));
+        console.log(historyObject);
+
+        if (historyObject !== null && historyObject !== 0 && historyObject !== undefined && historyObject !== "[object Object],[object Object]") {
+            for (i = 0; i < historyObject.ITEMS.length && i < 4; i++) {
+
+                var newDiv = $("<div>");
+                newDiv.addClass("carousel-item red white-text");
+                newDiv.css("border", "1px solid black");
+                newDiv.css("height", "800px");
+                var secondDiv = $("<div>");
+                secondDiv.addClass("valign-wrapper");
+                secondDiv.css("background-color", "black");
+                secondDiv.css("width", "85%");
+                secondDiv.css("position", "absolute");
+                secondDiv.css("top", "5%");
+                secondDiv.css("right", "5%");
+                secondDiv.css("border-radius", "4px");
+                secondDiv.css("border", "white solid 1px");
+                //making new image with movie poster from response
+                var newImage = $("<img>");
+                newImage.addClass("responsive-img");
+                newImage.css("width", "300px");
+                newImage.css("border", "black 1px solid");
+                newImage.css("padding", "5px 5px 10px 5px");
+
+                newImage.attr("src", historyObject.ITEMS[i].image);
+                //making mini div with movie information
+                var movieTitle = $("<h9>");
+                movieTitle.text(historyObject.ITEMS[i].title);
+                var moviePlot = $("<p>");
+                moviePlot.text(historyObject.ITEMS[i].synopsis);
+                var movieRating = $("<p>");
+                movieRating.text(historyObject.ITEMS[i].rating + " /10 as chosen by IMBD users");
+                var movieLength = $("<p>");
+                movieLength.text(historyObject.ITEMS[i].runtime);
+                secondDiv.append(newImage);
+                secondDiv.append(movieTitle);
+                secondDiv.append(moviePlot);
+                secondDiv.append(movieRating);
+                secondDiv.append(movieLength);
+                newDiv.append(secondDiv);
+                $(".carousel").append(newDiv);
+            }
+            $('.carousel.carousel-slider').carousel(
+                {
+                    fullWidth: true,
+                    indicators: true
+                });
+        } else {
+        }
+
         $('.dropdown-trigger').dropdown
             ({
             });
